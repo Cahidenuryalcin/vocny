@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:vocny/screens/home2.dart';
 import 'screens/home_screen.dart';
 import 'utils/app_theme.dart';
 
@@ -14,7 +15,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Vocny',
       theme: appTheme,
-      home: const HomeScreen(),
+      home: const HomeScreen2(),
     );
   }
 }
