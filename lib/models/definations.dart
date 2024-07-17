@@ -5,8 +5,13 @@ class WordDefinition {
   String origin;
   List<Meanings> meanings;
 
-  WordDefinition(
-      {required this.word, required this.phonetic, required this.phonetics, required this.origin, required this.meanings});
+  WordDefinition({
+    required this.word,
+    required this.phonetic,
+    required this.phonetics,
+    required this.origin,
+    required this.meanings,
+  });
 
   factory WordDefinition.fromJson(Map<String, dynamic> json) {
     return WordDefinition(
@@ -56,7 +61,7 @@ class Phonetics {
 
 class Meanings {
   String partOfSpeech;
-  List<WordDefinition> definitions;
+  List<Definitions> definitions;
 
   Meanings({required this.partOfSpeech, required this.definitions});
 
@@ -64,7 +69,7 @@ class Meanings {
     return Meanings(
       partOfSpeech: json['partOfSpeech'] ?? '',
       definitions: (json['definitions'] as List)
-          .map((item) => WordDefinition.fromJson(item))
+          .map((item) => Definitions.fromJson(item))
           .toList(),
     );
   }
@@ -83,7 +88,12 @@ class Definitions {
   List<String> synonyms;
   List<String> antonyms;
 
-  Definitions({required this.definition, this.example, required this.synonyms, required this.antonyms});
+  Definitions({
+    required this.definition,
+    this.example,
+    required this.synonyms,
+    required this.antonyms,
+  });
 
   factory Definitions.fromJson(Map<String, dynamic> json) {
     return Definitions(

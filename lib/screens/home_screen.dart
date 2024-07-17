@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:vocny/models/definations.dart';
+import 'package:vocny/services/dictionary_service.dart';
 import 'package:vocny/utils/app_colors.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -10,12 +12,14 @@ class HomeScreen extends StatefulWidget {
 
 
 class _HomeScreenState extends State<HomeScreen> {
-  final TextEditingController _controller = TextEditingController();
-  String _result = "";
+    final TextEditingController _controller = TextEditingController();
+  WordDefinition? _result;
+  final DictionaryService _dictionaryService = DictionaryService();
 
-  void _search() {
+  void _search() async {
+    WordDefinition? wordDefinition = await _dictionaryService.fetchWord(_controller.text);
     setState(() {
-      _result = "Definition of ${_controller.text}"; // simdilik
+      _result = wordDefinition;
     });
   }
 
@@ -25,8 +29,8 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(
         title: const Text('Vocny', style: TextStyle(
           color: AppColors.accentColor,
-          fontSize: 28
-          ),),
+          fontSize: 28,
+        )),
         backgroundColor: AppColors.primaryColor,
       ),
       body: Padding(
@@ -48,10 +52,52 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
             const SizedBox(height: 20),
-            Text(
-              _result,
-              style: Theme.of(context).textTheme.bodyLarge,
-            ),
+            _result != null
+                ? Expanded(
+                    child: ListView(
+                      children: [
+                        Text(
+                          'Word: ${_result!.word}',
+                          style: Theme.of(context).textTheme.bodyLarge,
+                        ),
+                        Text(
+                          'Phonetic: ${_result!.phonetic}',
+                          style: Theme.of(context).textTheme.bodyLarge,
+                        ),
+                        Text(
+                          'Origin: ${_result!.origin}',
+                          style: Theme.of(context).textTheme.bodyLarge,
+                        ),
+                        const SizedBox(height: 10),
+                        Text(
+                          'Meanings:',
+                          style: Theme.of(context).textTheme.bodyLarge,
+                        ),
+                        for (var meaning in _result!.meanings)
+                          Padding(
+                            padding: const EdgeInsets.only(top: 8.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'Part of Speech: ${meaning.partOfSpeech}',
+                                  style: Theme.of(context).textTheme.bodyMedium,
+                                ),
+                                for (var definition in meaning.definitions)
+                                  Text(
+                                    '- ${definition.definition}',
+                                    style: Theme.of(context).textTheme.bodyMedium,
+                                  ),
+                              ],
+                            ),
+                          ),
+                      ],
+                    ),
+                  )
+                : const Text(
+                    'Enter a word to get its definition',
+                    style: TextStyle(fontSize: 18),
+                  ),
           ],
         ),
       ),
