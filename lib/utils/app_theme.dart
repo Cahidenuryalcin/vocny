@@ -13,7 +13,18 @@ final ThemeData appTheme = ThemeData(
     ),
     bodyLarge: TextStyle(
       fontFamily: 'Arial',
-      fontSize: 16,
+      fontSize: 18,
+      color: AppColors.textColor,
+    ),
+    bodyMedium: TextStyle(
+      fontFamily: 'Arial',
+      fontSize: 18,
+      fontWeight: FontWeight.bold,
+      color: AppColors.textColor,
+    ),
+    bodySmall: TextStyle(
+      fontFamily: 'Arial',
+      fontSize: 18,
       color: AppColors.textColor,
     ),
   ),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:vocny/models/definations.dart';
 import 'package:vocny/services/dictionary_service.dart';
 import 'package:vocny/utils/app_colors.dart';
+import 'package:vocny/utils/app_theme.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -10,9 +11,8 @@ class HomeScreen extends StatefulWidget {
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
-
 class _HomeScreenState extends State<HomeScreen> {
-    final TextEditingController _controller = TextEditingController();
+  final TextEditingController _controller = TextEditingController();
   WordDefinition? _result;
   final DictionaryService _dictionaryService = DictionaryService();
 
@@ -20,6 +20,7 @@ class _HomeScreenState extends State<HomeScreen> {
     WordDefinition? wordDefinition = await _dictionaryService.fetchWord(_controller.text);
     setState(() {
       _result = wordDefinition;
+      _controller.clear(); // onu da ben temizlerim evi temizledigim yetmiyor ya onu da temizleyeyim 
     });
   }
 
@@ -29,7 +30,7 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(
         title: const Text('Vocny', style: TextStyle(
           color: AppColors.accentColor,
-          fontSize: 28,
+          fontSize: 30,
         )),
         backgroundColor: AppColors.primaryColor,
       ),
@@ -58,20 +59,20 @@ class _HomeScreenState extends State<HomeScreen> {
                       children: [
                         Text(
                           'Word: ${_result!.word}',
-                          style: Theme.of(context).textTheme.bodyLarge,
+                          style: Theme.of(context).textTheme.bodyMedium,
                         ),
                         Text(
                           'Phonetic: ${_result!.phonetic}',
-                          style: Theme.of(context).textTheme.bodyLarge,
+                          style: Theme.of(context).textTheme.bodyMedium,
                         ),
                         Text(
                           'Origin: ${_result!.origin}',
-                          style: Theme.of(context).textTheme.bodyLarge,
+                          style: Theme.of(context).textTheme.bodyMedium,
                         ),
                         const SizedBox(height: 10),
                         Text(
                           'Meanings:',
-                          style: Theme.of(context).textTheme.bodyLarge,
+                          style: Theme.of(context).textTheme.bodyMedium,
                         ),
                         for (var meaning in _result!.meanings)
                           Padding(
@@ -84,9 +85,12 @@ class _HomeScreenState extends State<HomeScreen> {
                                   style: Theme.of(context).textTheme.bodyMedium,
                                 ),
                                 for (var definition in meaning.definitions)
-                                  Text(
-                                    '- ${definition.definition}',
-                                    style: Theme.of(context).textTheme.bodyMedium,
+                                  Padding(
+                                    padding: const EdgeInsets.only(left: 16.0, top: 4.0),
+                                    child: Text(
+                                      '💙 ${definition.definition}',
+                                      style: Theme.of(context).textTheme.bodySmall,
+                                    ),
                                   ),
                               ],
                             ),
