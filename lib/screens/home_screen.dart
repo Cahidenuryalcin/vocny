@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:vocny/models/definations.dart';
 import 'package:vocny/services/dictionary_service.dart';
 import 'package:vocny/utils/app_colors.dart';
-import 'package:vocny/utils/app_theme.dart';
+
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});

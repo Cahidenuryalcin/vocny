@@ -12,7 +12,7 @@ class DictionaryService {
       List<dynamic> jsonResponse = json.decode(res.body);
       return WordDefinition.fromJson(jsonResponse[0]);
     } else {
-      debugPrint("istek basarisiz: ${res.statusCode}");
+      debugPrint("request failed: ${res.statusCode}");
     }
     return null;
   }
