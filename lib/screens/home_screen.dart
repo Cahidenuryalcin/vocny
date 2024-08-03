@@ -20,7 +20,7 @@ class _HomeScreenState extends State<HomeScreen> {
     WordDefinition? wordDefinition = await _dictionaryService.fetchWord(_controller.text);
     setState(() {
       _result = wordDefinition;
-      _controller.clear(); // onu da ben temizlerim evi temizledigim yetmiyor ya onu da temizleyeyim 
+      _controller.clear(); 
     });
   }
 
